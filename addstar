@@ -1,0 +1,15 @@
+tell application "Finder"
+	set select_list to selection
+	repeat with f in select_list
+		set fname_ext to f's name --filename and extension
+		set fext to f's name extension --extension
+		set fname to (f's name as text)'s items 1 thru -(((f's name extension as text)'s length) + 2) as text --ファイル名
+		set fdir to f's folder as alias --directory
+	end repeat
+end tell
+fname_ext & return & fext & return & fname & return & fdir
+
+set newfname_ext to fname & "★." & fext
+tell application "Finder"
+	set name of file fname_ext of folder fdir to newfname_ext
+end tell
